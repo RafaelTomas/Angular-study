@@ -1,0 +1,19 @@
+.quadrado{
+    width: 70%;
+    border: 1px black solid;
+}
+
+.meuform {
+
+    top: 20%;
+    left: 20%;
+    position: relative;
+}
+
+.caixinha{
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    background: antiquewhite;
+    border: 1px black solid;
+}

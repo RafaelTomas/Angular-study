@@ -1,14 +1,45 @@
-<table>
-  <thead>
-  <tr>
-    <th>Data</th>
-    <th *ngFor="let exameData of examList">{{ exameData.date | date: 'dd/MM/yyyy' }}</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let exame of examFields">
-    <td>{{ exame }}</td>
-    <td *ngFor="let exameData of examList">{{ getValueByFieldAndDate(exame, exameData.date) }}</td>
-  </tr>
-  </tbody>
-</table>
+<form [formGroup]="examForm" (ngSubmit)="onSubmit()">
+
+  <p>
+    <label>Date</label>
+    <input type="date" formControlName="date">
+  </p>
+
+  newExam:
+  <div formArrayName="examsPlus">
+      <div *ngFor="let data of examsPlus().controls; let i = index">
+        <div [formGroupName]="i">
+          Exam name :
+          <input type="text" formControlName="exam" >
+          result:
+          <input type="text" formControlName="result">
+
+          <button (click)="removeExamPlus(i)">Remove</button>
+        </div>
+      </div>
+  </div>
+
+  ExamsList:
+  <div formArrayName="examsConfig">
+    <div *ngFor="let data of examsConfig().controls; let i = index">
+      <div [formGroupName]="i">
+        Exam name :
+        <input type="text" formControlName="exam" readonly value="data.get('exam').value" >
+        result:
+        <input type="text" formControlName="result">
+      </div>
+    </div>
+  </div>
+
+  <p>
+    <button type="submit">Submit</button>
+  </p>
+
+</form>
+
+
+<p>
+  <button type="button" (click)="addExams()">Add</button>
+</p>
+
+{{this.examsConfig()}}
